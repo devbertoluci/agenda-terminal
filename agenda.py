@@ -53,6 +53,20 @@ def view_favorite_contacts(agenda):
     return
 
 
+def unfavorite_user(agenda, index_contact):
+    index_contact_fixed = int(index_contact) - 1
+    agenda[index_contact_fixed]["Favorito"] = False
+    print(f"Contato {index_contact} desfavoritado com sucesso!")
+    return
+
+
+def delete_user(agenda, index_contact):
+    index_contact_fixed = int(index_contact) - 1
+    del agenda[index_contact_fixed]
+    print(f"Contato {index_contact} excluído com sucesso!")
+    return
+
+
 agenda = []
 while True:
     print("-----------------------------")
@@ -64,8 +78,9 @@ while True:
     print("3. Editar contato")
     print("4. Favoritar contato")
     print("5. Listar favoritos")
-    print("6. Excluir contato")
-    print("7. Sair")
+    print("6. Desfavoritar contato")
+    print("7. Excluir contato")
+    print("8. Sair")
     option = input("Digite o número da opção desejada: ")
 
     if option == "1":
@@ -94,6 +109,16 @@ while True:
         view_favorite_contacts(agenda)
 
     elif option == "6":
+        view_favorite_contacts(agenda)
+        index_contact = input("Digite o índice do contato que deseja desfavoritar: ")
+        unfavorite_user(agenda, index_contact)
+
+    elif option == "7":
+        view_contacts(agenda)
+        index_contact = input("Digite o índice do contato que deseja excluir: ")
+        delete_user(agenda, index_contact)
+
+    elif option == "8":
         break
 
 print("Programa finalizado! 🔴")
