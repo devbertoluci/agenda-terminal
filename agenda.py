@@ -14,12 +14,24 @@ def add_user(agenda, user_name, user_phone, user_email):
 
 def view_contacts(agenda):
     print("\nLista de contatos: ")
-    for indice, contact in enumerate(agenda, start=1):
+    for index, contact in enumerate(agenda, start=1):
         favorite = "⭐" if contact["Favorito"] else " "
         user_name = contact["contact"]
         user_phone = contact["phone"]
         user_email = contact["email"]
-        print(f"{favorite} {indice}. {user_name} ({user_phone}) {user_email}")
+        print(f"{favorite} {index}. {user_name} ({user_phone}) {user_email}")
+    return
+
+
+def edit_user(agenda, index_contact, new_name, new_phone, new_email):
+    index_contact_fixed = int(index_contact) - 1
+    if index_contact_fixed >= 0 and index_contact_fixed < len(agenda):
+        agenda[index_contact_fixed]["contact"] = new_name
+        agenda[index_contact_fixed]["phone"] = new_phone
+        agenda[index_contact_fixed]["email"] = new_email
+        print(f"Contato {new_name} editado com sucesso!")
+    else:
+        print("Índice inválido!")
     return
 
 
@@ -45,6 +57,14 @@ while True:
 
     elif option == "2":
         view_contacts(agenda)
+
+    elif option == "3":
+        view_contacts(agenda)
+        index_contact = input("Digite o índice do contato que deseja editar: ")
+        new_name = input("Digite o novo nome do contato: ")
+        new_phone = input("Digite o novo telefone do contato: ")
+        new_email = input("Digite o novo email do contato: ")
+        edit_user(agenda, index_contact, new_name, new_phone, new_email)
 
     elif option == "6":
         break
