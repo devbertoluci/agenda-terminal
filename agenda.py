@@ -3,7 +3,7 @@ def add_user(agenda, user_name, user_phone, user_email):
         "contact": user_name,
         "phone": user_phone,
         "email": user_email,
-        "Favorito": True,
+        "Favorito": False,
     }
     agenda.append(contact)
     print(
@@ -19,7 +19,7 @@ def view_contacts(agenda):
         user_name = contact["contact"]
         user_phone = contact["phone"]
         user_email = contact["email"]
-        print(f"{favorite} {index}. {user_name} ({user_phone}) {user_email}")
+        print(f"{index}. {user_name} ({user_phone}) {user_email} {favorite}")
     return
 
 
@@ -35,6 +35,24 @@ def edit_user(agenda, index_contact, new_name, new_phone, new_email):
     return
 
 
+def favorite_user(agenda, index_contact):
+    index_contact_fixed = int(index_contact) - 1
+    agenda[index_contact_fixed]["Favorito"] = True
+    print(f"Contato {index_contact} favoritado com sucesso!")
+    return
+
+
+def view_favorite_contacts(agenda):
+    print("Contatos favoritos:")
+    for index, contact in enumerate(agenda):
+        if contact["Favorito"]:
+            user_name = contact["contact"]
+            user_phone = contact["phone"]
+            user_email = contact["email"]
+            print(f"⭐️ {index + 1}. {user_name} ({user_phone}) {user_email}")
+    return
+
+
 agenda = []
 while True:
     print("-----------------------------")
@@ -45,8 +63,9 @@ while True:
     print("2. Listar contatos")
     print("3. Editar contato")
     print("4. Favoritar contato")
-    print("5. Excluir contato")
-    print("6. Sair")
+    print("5. Listar favoritos")
+    print("6. Excluir contato")
+    print("7. Sair")
     option = input("Digite o número da opção desejada: ")
 
     if option == "1":
@@ -65,6 +84,14 @@ while True:
         new_phone = input("Digite o novo telefone do contato: ")
         new_email = input("Digite o novo email do contato: ")
         edit_user(agenda, index_contact, new_name, new_phone, new_email)
+
+    elif option == "4":
+        view_contacts(agenda)
+        index_contact = input("Digite o índice do contato que deseja favoritar: ")
+        favorite_user(agenda, index_contact)
+
+    elif option == "5":
+        view_favorite_contacts(agenda)
 
     elif option == "6":
         break
